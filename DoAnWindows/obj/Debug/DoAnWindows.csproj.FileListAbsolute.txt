@@ -17,3 +17,4 @@ A:\Users\bichp\source\repos\DoAnWindows\DoAnWindows\obj\Debug\DoAnWindows.Views.
 A:\Users\bichp\source\repos\DoAnWindows\DoAnWindows\obj\Debug\DoAnWindows.Views.FormBaoCao.resources
 A:\Users\bichp\source\repos\DoAnWindows\DoAnWindows\obj\Debug\DoAnWindows.Views.FormDangky.resources
 A:\Users\bichp\source\repos\DoAnWindows\DoAnWindows\obj\Debug\DoAnWindows.Views.FormLogin.resources
+A:\Users\bichp\source\repos\DoAnWindows\DoAnWindows\obj\Debug\DoAnWindows.csprojAssemblyReference.cache
