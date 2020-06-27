@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QUANLYDOANModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BAOCAO">
+    <Key>
+      <PropertyRef Name="STT" />
+      <PropertyRef Name="MaDeTai" />
+    </Key>
+    <Property Name="STT" Type="int" Nullable="false" />
+    <Property Name="NhanXet" Type="nvarchar" MaxLength="1000" />
+    <Property Name="TaiLieu" Type="varchar" MaxLength="1000" />
+    <Property Name="MaDeTai" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DETAI">
+    <Key>
+      <PropertyRef Name="MaDeTai" />
+    </Key>
+    <Property Name="MaDeTai" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TenDeTai" Type="nvarchar" MaxLength="1000" />
+    <Property Name="LoaiDeTai" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Solan" Type="int" />
+    <Property Name="TGBD" Type="datetime" />
+    <Property Name="TGKT" Type="datetime" />
+    <Property Name="MaGV" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="DETAISINHVIENs">
+    <Key>
+      <PropertyRef Name="MaDeTai" />
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaDeTai" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaSV" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GIAOVIEN">
+    <Key>
+      <PropertyRef Name="MaGV" />
+    </Key>
+    <Property Name="MaGV" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Phai" Type="nchar" MaxLength="10" />
+    <Property Name="Ngaysinh" Type="datetime" />
+    <Property Name="SDT" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="varchar" MaxLength="1000" />
+    <Property Name="Picture" Type="image" />
+  </EntityType>
+  <EntityType Name="GIAOVIENSINHVIENs">
+    <Key>
+      <PropertyRef Name="MaGV" />
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaGV" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="MaSV" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SINHVIEN">
+    <Key>
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaSV" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Gioitinh" Type="nchar" MaxLength="10" />
+    <Property Name="Ngaysinh" Type="datetime" />
+    <Property Name="SDT" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="varchar" MaxLength="1000" />
+    <Property Name="Picture" Type="image" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="MaUser" Type="varchar" MaxLength="100" />
+    <Property Name="Pass" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <Association Name="FK__BAOCAO__MaDeTai__4F47C5E3">
+    <End Role="DETAI" Type="Self.DETAI" Multiplicity="1" />
+    <End Role="BAOCAO" Type="Self.BAOCAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DETAI">
+        <PropertyRef Name="MaDeTai" />
+      </Principal>
+      <Dependent Role="BAOCAO">
+        <PropertyRef Name="MaDeTai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DETAI__MaGV__160F4887">
+    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DETAI" Type="Self.DETAI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GIAOVIEN">
+        <PropertyRef Name="MaGV" />
+      </Principal>
+      <Dependent Role="DETAI">
+        <PropertyRef Name="MaGV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DETAISINH__MaDeT__18EBB532">
+    <End Role="DETAI" Type="Self.DETAI" Multiplicity="1" />
+    <End Role="DETAISINHVIENs" Type="Self.DETAISINHVIENs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DETAI">
+        <PropertyRef Name="MaDeTai" />
+      </Principal>
+      <Dependent Role="DETAISINHVIENs">
+        <PropertyRef Name="MaDeTai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DETAISINHV__MaSV__19DFD96B">
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="1" />
+    <End Role="DETAISINHVIENs" Type="Self.DETAISINHVIENs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SINHVIEN">
+        <PropertyRef Name="MaSV" />
+      </Principal>
+      <Dependent Role="DETAISINHVIENs">
+        <PropertyRef Name="MaSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GIAOVIENSI__MaGV__123EB7A3">
+    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="1" />
+    <End Role="GIAOVIENSINHVIENs" Type="Self.GIAOVIENSINHVIENs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GIAOVIEN">
+        <PropertyRef Name="MaGV" />
+      </Principal>
+      <Dependent Role="GIAOVIENSINHVIENs">
+        <PropertyRef Name="MaGV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GIAOVIENSI__MaSV__1332DBDC">
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="1" />
+    <End Role="GIAOVIENSINHVIENs" Type="Self.GIAOVIENSINHVIENs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SINHVIEN">
+        <PropertyRef Name="MaSV" />
+      </Principal>
+      <Dependent Role="GIAOVIENSINHVIENs">
+        <PropertyRef Name="MaSV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QUANLYDOANModelStoreContainer">
+    <EntitySet Name="BAOCAO" EntityType="Self.BAOCAO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DETAI" EntityType="Self.DETAI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DETAISINHVIENs" EntityType="Self.DETAISINHVIENs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GIAOVIEN" EntityType="Self.GIAOVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GIAOVIENSINHVIENs" EntityType="Self.GIAOVIENSINHVIENs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SINHVIEN" EntityType="Self.SINHVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BAOCAO__MaDeTai__4F47C5E3" Association="Self.FK__BAOCAO__MaDeTai__4F47C5E3">
+      <End Role="DETAI" EntitySet="DETAI" />
+      <End Role="BAOCAO" EntitySet="BAOCAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DETAI__MaGV__160F4887" Association="Self.FK__DETAI__MaGV__160F4887">
+      <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
+      <End Role="DETAI" EntitySet="DETAI" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DETAISINH__MaDeT__18EBB532" Association="Self.FK__DETAISINH__MaDeT__18EBB532">
+      <End Role="DETAI" EntitySet="DETAI" />
+      <End Role="DETAISINHVIENs" EntitySet="DETAISINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DETAISINHV__MaSV__19DFD96B" Association="Self.FK__DETAISINHV__MaSV__19DFD96B">
+      <End Role="SINHVIEN" EntitySet="SINHVIEN" />
+      <End Role="DETAISINHVIENs" EntitySet="DETAISINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GIAOVIENSI__MaGV__123EB7A3" Association="Self.FK__GIAOVIENSI__MaGV__123EB7A3">
+      <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
+      <End Role="GIAOVIENSINHVIENs" EntitySet="GIAOVIENSINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GIAOVIENSI__MaSV__1332DBDC" Association="Self.FK__GIAOVIENSI__MaSV__1332DBDC">
+      <End Role="SINHVIEN" EntitySet="SINHVIEN" />
+      <End Role="GIAOVIENSINHVIENs" EntitySet="GIAOVIENSINHVIENs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

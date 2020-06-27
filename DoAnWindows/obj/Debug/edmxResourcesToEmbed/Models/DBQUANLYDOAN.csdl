@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QUANLYDOANModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BAOCAO">
+    <Key>
+      <PropertyRef Name="STT" />
+      <PropertyRef Name="MaDeTai" />
+    </Key>
+    <Property Name="STT" Type="Int32" Nullable="false" />
+    <Property Name="NhanXet" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="TaiLieu" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="MaDeTai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DETAI" Relationship="Self.FK__BAOCAO__MaDeTai__4F47C5E3" FromRole="BAOCAO" ToRole="DETAI" />
+  </EntityType>
+  <EntityType Name="DETAI">
+    <Key>
+      <PropertyRef Name="MaDeTai" />
+    </Key>
+    <Property Name="MaDeTai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenDeTai" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="LoaiDeTai" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Solan" Type="Int32" />
+    <Property Name="TGBD" Type="DateTime" Precision="3" />
+    <Property Name="TGKT" Type="DateTime" Precision="3" />
+    <Property Name="MaGV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BAOCAOs" Relationship="Self.FK__BAOCAO__MaDeTai__4F47C5E3" FromRole="DETAI" ToRole="BAOCAO" />
+    <NavigationProperty Name="GIAOVIEN" Relationship="Self.FK__DETAI__MaGV__160F4887" FromRole="DETAI" ToRole="GIAOVIEN" />
+    <NavigationProperty Name="SINHVIENs" Relationship="Self.DETAISINHVIENs" FromRole="DETAI" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityType Name="GIAOVIEN">
+    <Key>
+      <PropertyRef Name="MaGV" />
+    </Key>
+    <Property Name="MaGV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Phai" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Ngaysinh" Type="DateTime" Precision="3" />
+    <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="DETAIs" Relationship="Self.FK__DETAI__MaGV__160F4887" FromRole="GIAOVIEN" ToRole="DETAI" />
+    <NavigationProperty Name="SINHVIENs" Relationship="Self.GIAOVIENSINHVIENs" FromRole="GIAOVIEN" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityType Name="SINHVIEN">
+    <Key>
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Gioitinh" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Ngaysinh" Type="DateTime" Precision="3" />
+    <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="DETAIs" Relationship="Self.DETAISINHVIENs" FromRole="SINHVIEN" ToRole="DETAI" />
+    <NavigationProperty Name="GIAOVIENs" Relationship="Self.GIAOVIENSINHVIENs" FromRole="SINHVIEN" ToRole="GIAOVIEN" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="MaUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Pass" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__BAOCAO__MaDeTai__4F47C5E3">
+    <End Role="DETAI" Type="Self.DETAI" Multiplicity="1" />
+    <End Role="BAOCAO" Type="Self.BAOCAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DETAI">
+        <PropertyRef Name="MaDeTai" />
+      </Principal>
+      <Dependent Role="BAOCAO">
+        <PropertyRef Name="MaDeTai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DETAI__MaGV__160F4887">
+    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DETAI" Type="Self.DETAI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GIAOVIEN">
+        <PropertyRef Name="MaGV" />
+      </Principal>
+      <Dependent Role="DETAI">
+        <PropertyRef Name="MaGV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DETAISINHVIENs">
+    <End Role="DETAI" Type="Self.DETAI" Multiplicity="*" />
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="*" />
+  </Association>
+  <Association Name="GIAOVIENSINHVIENs">
+    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
+    <End Role="SINHVIEN" Type="Self.SINHVIEN" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="QUANLYDOANEntities7" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BAOCAOs" EntityType="Self.BAOCAO" />
+    <EntitySet Name="DETAIs" EntityType="Self.DETAI" />
+    <EntitySet Name="GIAOVIENs" EntityType="Self.GIAOVIEN" />
+    <EntitySet Name="SINHVIENs" EntityType="Self.SINHVIEN" />
+    <EntitySet Name="USERS" EntityType="Self.USER" />
+    <AssociationSet Name="FK__BAOCAO__MaDeTai__4F47C5E3" Association="Self.FK__BAOCAO__MaDeTai__4F47C5E3">
+      <End Role="DETAI" EntitySet="DETAIs" />
+      <End Role="BAOCAO" EntitySet="BAOCAOs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DETAI__MaGV__160F4887" Association="Self.FK__DETAI__MaGV__160F4887">
+      <End Role="GIAOVIEN" EntitySet="GIAOVIENs" />
+      <End Role="DETAI" EntitySet="DETAIs" />
+    </AssociationSet>
+    <AssociationSet Name="DETAISINHVIENs" Association="Self.DETAISINHVIENs">
+      <End Role="DETAI" EntitySet="DETAIs" />
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="GIAOVIENSINHVIENs" Association="Self.GIAOVIENSINHVIENs">
+      <End Role="GIAOVIEN" EntitySet="GIAOVIENs" />
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

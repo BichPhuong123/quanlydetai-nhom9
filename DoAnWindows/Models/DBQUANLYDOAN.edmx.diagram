@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5902f2bc0ef043b89ba196f43e03c171" Name="Diagram1">
+        <EntityTypeShape EntityType="QUANLYDOANModel.BAOCAO" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QUANLYDOANModel.DETAI" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QUANLYDOANModel.GIAOVIEN" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QUANLYDOANModel.SINHVIEN" Width="1.5" PointX="8.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QUANLYDOANModel.USER" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="QUANLYDOANModel.FK__BAOCAO__MaDeTai__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="QUANLYDOANModel.FK__DETAI__MaGV__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="QUANLYDOANModel.DETAISINHVIENs" ManuallyRouted="false" />
+        <AssociationConnector Association="QUANLYDOANModel.GIAOVIENSINHVIENs" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
